@@ -1,5 +1,9 @@
+import entities.Animals;
 import entities.Cat;
 import entities.Dog;
+import entities.Student;
+import interfaces.Jumper;
+import interfaces.Runner;
 
 public class Main {
     static void main() {
@@ -22,7 +26,7 @@ public class Main {
 
         // L'estensione di una classe deve rispettare le regole di visibilità viste precedentemente.
         // Membri public: Sempre accessibili dalla sottoclasse, indipendentemente dal package
-        // Membri protected: specificatamente progettati per l'ereditarietà; sono accessibili dalla sottoclasse anche se si        trova in un package differente
+        // Membri protected: specificatamente progettati per l'ereditarietà; sono accessibili dalla sottoclasse anche se si trova in un package differente
         // Membri package-friendly: Accessibili solo se la sottoclasse risiede nello stesso package della superclasse
         // Membri private: Mai accessibili direttamente. La sottoclasse li eredita (esistono in memoria), ma può
         // interagire con essi solo tramite metodi public o protected (Getter/Setter)
@@ -30,7 +34,7 @@ public class Main {
         // La sottoclasse non si limita a ereditare, ma espande le capacità della superclasse aggiungendo
         // comportamenti unici e specifici. Questi metodi definiscono l'identità propria della sottoclasse
         // Lo scopo è implementare azioni che non avrebbero senso nella superclasse
-        // (es. un aereo decolla, ma un veicolo generico no)
+        // (es. Un aereo decolla, ma un veicolo generico no)
 
         //-------OVERLOADING----------
         // L'Overloading avviene quando nella sottoclasse definiamo un metodo con lo stesso nome di uno
@@ -63,9 +67,9 @@ public class Main {
         //Fornisce il costruttore e il metodo accendiMotore() a
         //tutti i figli, ma rimane un'entità puramente concettuale
 
-        // public abstract class Veicolo // abstract farà in modo che non sia possibile creare veicoli
+        // Public abstract class Veicolo // abstract farà in modo che non sia possibile creare veicoli
         // Una classe abstract possono dichiarare dei metodi astratti
-        // Es. public abstract void muoviti() <-- Anche questo verrà ereditàto dai figli e saranno questi
+        // Es. Public abstract void muoviti() <-- Anche questo verrà ereditàto dai figli e saranno questi
         // a decidere come "muoversi" tramite un override.
 
         cat01.sayYourName();
@@ -73,6 +77,50 @@ public class Main {
         //-------INTERFACCE----------
         // Le interface si usano per fare in modo che classi e sottoclassi che non hanno superclassi in comune
         // possano usare dei metodi specifici dichiarate nell'interfaccia
+        cat01.sayYourName("Hello =^.u.^=");
+
+        //-------POLIMORFISMO-------
+        // Ogni oggetto ha più tipi e quindi più forme
+        // II polimorfismo è un concetto strettamente collegato a ereditarietà e astrazione. L'ereditarietà fornisce la
+        // struttura per le relazioni tra classi, mentre l'astrazione definisce le interfacce comuni attraverso le quali il
+        // polimorfismo può essere realizzato. L'utilizzo combinato di questi tre concetti consente di scrivere codice più
+        // flessibile, generico ed estendibile nelle applicazioni Java OOP.
+
+        // Grazie al polimorfismo posso per esempio crearmi un array di animali.
+        Animals[] animals = {cat01, dog01};
+        for (Animals animal : animals) {
+            animal.makeSound();
+        }
+        // O anche creare uno studente e poi creare un array che contenga i runner
+        // cioè tutte quelle classi che condividono l'interfaccia runner
+        // Pur non avendo alcuna superclasse in condivisione
+        Student student = new Student("Giacomo", "Rossi");
+
+        Runner[] runners = {dog01, student};
+        for (Runner runner : runners) {
+            runner.run(10);
+        }
+        // In un array polimorfico potremmo avere bisogno di usare un metodo non in comune
+        // quindi si usa il casting e bisogna convertire l'oggetto facendola diventare la classe desiderata
+        // Il casting però deve essere fatto con controllo con un if-else e con instanceof per poter fare in modo
+        // che il programma funzioni bene
+
+        Jumper[] jumpers = {cat01, student};
+        for (Jumper jumper : jumpers) {
+            jumper.jump(10);
+            if (jumper instanceof Cat cat) {
+                cat.makeSound();
+            } else {
+                System.out.println("Non è un gatto");
+            }
+        }
+
+    }
+
+    //Se avessi bisogno di usare un metodo che è condiviso fra le vari sotto classi potrei creare proprio un metodo che accetta
+    //tutti gli oggetti che usano quel metodo, in questo caso tutti gli Animals hanno makeSound.
+    public static void makeAnimalSound(Animals animals) {
+        animals.makeSound();
     }
 
 

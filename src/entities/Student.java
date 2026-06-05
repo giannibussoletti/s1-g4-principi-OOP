@@ -31,13 +31,13 @@ public class Student implements Jumper, Runner {
     //INTERFACCIA
     @Override
     public void jump(int amount) {
-
+        System.out.println("Ha saltato di " + amount);
     }
 
     //INTERFACCIA
     @Override
     public void run(int amount) {
-
+        System.out.println("Ha corso " + amount + "m");
     }
 
 

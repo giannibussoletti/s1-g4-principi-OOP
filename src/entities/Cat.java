@@ -1,6 +1,9 @@
 package entities;
 
-public class Cat extends Animals {
+import interfaces.Jumper;
+import interfaces.Runner;
+
+public class Cat extends Animals implements Runner, Jumper {
     private final boolean hasBoots;
 
     public Cat(String name, int age, boolean hasBoots) {
@@ -30,12 +33,22 @@ public class Cat extends Animals {
         // Che viene chiamato dal sayYourName senza parametri
         System.out.println(saluto);
     }
-    
+
 
     @Override
     public String toString() {
         return "Cat{" +
                 "hasBoots=" + hasBoots +
                 "} " + super.toString();
+    }
+
+    @Override
+    public void jump(int amount) {
+
+    }
+
+    @Override
+    public void run(int amount) {
+        System.out.println("Ha saltato di " + amount);
     }
 }

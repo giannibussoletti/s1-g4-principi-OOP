@@ -22,7 +22,7 @@ public class Dog extends Animals implements Jumper, Runner {
     //INTERFACCIA
     @Override
     public void jump(int amount) {
-
+        System.out.println("Ha saltato di " + amount);
     }
 
     //INTERFACCIA
